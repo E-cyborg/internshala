@@ -5,7 +5,7 @@ import xlwings as xw
 import os
 
 # File path for the Excel sheet
-file_path = r"D:\coding\internshala\Primetrade.ai\crypto.xlsx"
+file_path = r"" # plese enter your path 
 
 # Fetch live cryptocurrency data
 def fetch_crypto_data():
