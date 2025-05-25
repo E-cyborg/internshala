@@ -82,3 +82,4 @@ while True:
     update_excel()
     print("Waiting 5 minutes for next update...")
     time.sleep(60 * 5)
+
