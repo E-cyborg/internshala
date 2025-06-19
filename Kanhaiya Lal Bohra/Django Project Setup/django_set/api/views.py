@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from rest_framework import generics,status
-from .serializers import BlogSerializer, CommentSerializer,LoginSerializer
+from .serializers import BlogSerializer, CommentSerializer,LoginSerializer,TelegramSerializer
 from media.models import Blog, Comments
 from rest_framework.decorators import api_view
 from django.contrib.auth import authenticate
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
-
+from .models import UsernameTelegram
 
 
 class BlogsView(generics.ListAPIView,generics.CreateAPIView):
@@ -61,4 +61,9 @@ class LoginView(GenericAPIView):
 class ProctedView(generics.ListCreateAPIView):
     serializer_class=BlogSerializer
     queryset=Blog.objects.all()
+    
+
+class TelegramUser(generics.ListCreateAPIView):
+    serializer_class=TelegramSerializer
+    queryset=UsernameTelegram.objects.all()
     
