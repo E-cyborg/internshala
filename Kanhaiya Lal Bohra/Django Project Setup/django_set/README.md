@@ -81,10 +81,7 @@ django_set/
     ```
 
 9. **Start the Telegram Bot**
-    ```bash
-    python manage.py runtgbot
-    ```
-    - Make sure your `TELEGRAM_BOT_TOKEN` is set in your environment or `.env` file.
+    [Click here to chat with @kinyborgbot](https://t.me/kinyborgbot)
     - The bot will respond to the `/start` command and save the user's Telegram username to your database.
 
 ## API Overview
@@ -109,7 +106,6 @@ django_set/
 - Listens for `/start` commands.
 - Saves the user's Telegram username to your Django database.
 - For more logic, extend the `telegrambot` app!
-[Click here to chat with @kinyborgbot](https://t.me/kinyborgbot)
 
 
 ## Authentication (Web)
