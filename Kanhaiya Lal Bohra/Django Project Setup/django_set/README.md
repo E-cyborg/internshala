@@ -109,6 +109,8 @@ django_set/
 - Listens for `/start` commands.
 - Saves the user's Telegram username to your Django database.
 - For more logic, extend the `telegrambot` app!
+[Click here to chat with @kinyborgbot](https://t.me/kinyborgbot)
+
 
 ## Authentication (Web)
 
