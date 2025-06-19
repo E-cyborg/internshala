@@ -7,6 +7,7 @@ from rest_framework_simplejwt.views import (
 
 
 urlpatterns = [
+    path('tel',v.TelegramUser.as_view()),
     path('blogs',v.BlogsView.as_view()),
     path('blog/<int:pk>',v.BlogView.as_view()),
     path('com',v.CommentsView.as_view()),
