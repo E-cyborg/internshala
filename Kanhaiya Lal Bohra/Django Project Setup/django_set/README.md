@@ -1,6 +1,6 @@
-# Django REST & Celery Boilerplate
+# Django REST, Celery & Telegram Bot Boilerplate
 
-This project is a production-ready Django REST Framework (DRF) setup, including JWT authentication, a simple blog/comments API, and Celery integration with Redis for background tasks. The project is organized for clarity and easy extensibility.
+This project is a modern Django REST Framework (DRF) setup, including JWT authentication, a simple blog/comments API, Celery integration with Redis for background tasks, and a Telegram Bot integration to collect user info. The project is organized for clarity and easy extensibility.
 
 ## Features
 
@@ -9,6 +9,7 @@ This project is a production-ready Django REST Framework (DRF) setup, including 
 - **User Registration & Login**: Standard web-based login and registration forms.
 - **Environment-Based Configuration**: Secrets and sensitive settings are loaded from environment variables for security.
 - **Celery + Redis**: Asynchronous background task processing with Redis as the broker (e.g., sending welcome emails after registration).
+- **Telegram Bot Integration**: Receives `/start` commands, collects user Telegram usernames, and stores them in your Django database.
 - **Production-Ready Settings**: `DEBUG` is set to `False` and other best practices are followed for deployment.
 
 ## Project Structure
@@ -17,7 +18,8 @@ This project is a production-ready Django REST Framework (DRF) setup, including 
 django_set/
 ├── api/            # API endpoints (blog, comments, etc.)
 ├── media/          # Models for blogs and comments
-├── register/       # User registration, login, and related tasks
+├── register/       # User registration, login, related tasks
+├── telegrambot/    # Telegram bot integration
 ├── django_set/     # Project settings, celery, urls
 ├── templates/      # HTML templates for authentication
 └── manage.py
@@ -49,6 +51,8 @@ django_set/
 
     EMAIL_HOST_USER=your-email@gmail.com
     EMAIL_HOST_PASSWORD=your-app-password
+
+    TELEGRAM_BOT_TOKEN=your-telegram-bot-token
     ```
 
 4. **Apply migrations**
@@ -76,6 +80,13 @@ django_set/
     python manage.py runserver
     ```
 
+9. **Start the Telegram Bot**
+    ```bash
+    python manage.py runtgbot
+    ```
+    - Make sure your `TELEGRAM_BOT_TOKEN` is set in your environment or `.env` file.
+    - The bot will respond to the `/start` command and save the user's Telegram username to your database.
+
 ## API Overview
 
 - **Public Endpoints**
@@ -92,6 +103,12 @@ django_set/
 
 - **Welcome Email**:  
   When a user logs in, a background task sends a welcome email using Celery and Redis.
+
+## Telegram Bot
+
+- Listens for `/start` commands.
+- Saves the user's Telegram username to your Django database.
+- For more logic, extend the `telegrambot` app!
 
 ## Authentication (Web)
 
@@ -112,4 +129,4 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 
 ---
 
-Made with ❤️ using Django, DRF, and Celery.
+Made with ❤️ using Django, DRF, Celery, and Telegram Bot API.
