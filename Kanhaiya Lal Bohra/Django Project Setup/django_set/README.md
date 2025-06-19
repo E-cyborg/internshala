@@ -34,8 +34,8 @@ django_set/
 
 2. **Set up your Python environment**
     ```bash
-    python3 -m venv venv
-    source venv/bin/activate
+    python -m venv .venv
+    .venv/Script/activate
     pip install -r requirements.txt
     ```
 
@@ -51,7 +51,6 @@ django_set/
     EMAIL_HOST_USER=your-email@gmail.com
     EMAIL_HOST_PASSWORD=your-app-password
 
-    TELEGRAM_BOT_TOKEN=your-telegram-bot-token
     ```
 
 4. **Apply migrations**
