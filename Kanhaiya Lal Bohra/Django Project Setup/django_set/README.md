@@ -19,7 +19,6 @@ django_set/
 ├── api/            # API endpoints (blog, comments, etc.)
 ├── media/          # Models for blogs and comments
 ├── register/       # User registration, login, related tasks
-├── telegrambot/    # Telegram bot integration
 ├── django_set/     # Project settings, celery, urls
 ├── templates/      # HTML templates for authentication
 └── manage.py
