@@ -4,3 +4,5 @@ djangorestframework-simplejwt
 python-decouple
 celery
 redis
+django-celery-results
+python-telegram-bot
