@@ -5,4 +5,4 @@ Address of the Promoter (Registered Office Address under Promoter Details Tab)
 GST No.
 
 
-i have to copy all the detail of card-body
+I have to copy all the details of the card-body
