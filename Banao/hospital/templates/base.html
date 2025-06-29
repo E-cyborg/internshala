@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My Site{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        nav {
+            background-color: #4CAF50;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        hr {
+            margin: 20px 0;
+            border: 1px solid #ddd;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
+    {% block style %}
+    {% endblock style %}
+    
+</head>
+<body>
+    <nav>
+        {% if user.is_authenticated %}
+            Welcome, {{ user.username }} |
+            <a href="{% url 'user' %}">Profile</a> |
+            <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a> |
+            <a href="{% url 'sign' %}">Register</a>
+        {% endif %}
+    </nav>
+    <hr>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
