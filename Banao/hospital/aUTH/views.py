@@ -27,7 +27,7 @@ def loginView(request):
             if user:
                 user = authenticate(request, username=user.username, password=password)
             else:
-                user = authenticate(request, email=email_or_username, password=password)
+                user = authenticate(request, username=email_or_username, password=password)
 
             if user:
                 login(request, user)
