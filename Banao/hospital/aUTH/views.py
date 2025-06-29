@@ -5,6 +5,8 @@ from django.contrib.auth import login,logout
 from .forms import UserCreateForm,LoginForm
 from django.contrib.auth.decorators import login_required
 from aUTH.models import cuser
+
+
 @login_required
 def user_view(request):
     return render(request, 'user.html', {'user': request.user})
@@ -25,7 +27,7 @@ def loginView(request):
             if user:
                 user = authenticate(request, username=user.username, password=password)
             else:
-                user = authenticate(request, username=email_or_username, password=password)
+                user = authenticate(request, email=email_or_username, password=password)
 
             if user:
                 login(request, user)
@@ -53,12 +55,3 @@ def RegisterView(request):
         form = UserCreateForm()
     return render(request, 'register.html', {'form': form})
 
-def DRegisterView(request):
-    if request.method == 'POST':
-        form = UserCreateForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('login') 
-    else:
-        form = UserCreateForm()
-    return render(request, 'register.html', {'form': form})
