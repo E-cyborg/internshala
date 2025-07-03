@@ -27,6 +27,7 @@ urlpatterns = [
 
     # Mappings
     path('mappings/', MappingListCreateView.as_view(), name='mappings_list_create'),
-    path('mappings/<int:patient_id>/', MappingByPatientView.as_view(), name='mappings_by_patient'),
+    path('mappings/patient/<int:patient_id>/', MappingByPatientView.as_view(), name='mappings_by_patient'),
     path('mappings/<int:pk>/', MappingDestroyView.as_view(), name='mappings_delete'),
+
 ]

@@ -27,12 +27,13 @@ class PatientSerializer(serializers.ModelSerializer):
         read_only_fields = ['user']
 
 class DoctorSerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    # user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     specialization_display = serializers.CharField(source='get_specialization_display', read_only=True)
 
     class Meta:
         model = Doctor
-        fields = ['id', 'user', 'name', 'specialization', 'specialization_display', 'contact_email']
+        fields = '__all__'
+        read_only_fields = ['user']
 
 class PatientDoctorMappingSerializer(serializers.ModelSerializer):
     class Meta:
