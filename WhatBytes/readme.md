@@ -10,20 +10,14 @@ The backend allows managing **patients, doctors, and their mappings**.
 1. **Clone the repository and install dependencies:**
 
     ```
-    git clone <your-repo-url>
+    git clone https://github.com/E-cyborg/internshala/tree/main/WhatBytes
     cd healthcare_backend
     pip install -r requirements.txt
     ```
 
 2. **Setup PostgreSQL database in `.env` file:**
     ```
-    DB_NAME=healthcare_db
-    DB_USER=postgres
-    DB_PASSWORD=yourpassword
-    DB_HOST=localhost
-    DB_PORT=5432
     SECRET_KEY=your_django_secret
-    DEBUG=True
     ```
 
 3. **Run migrations and start server:**
@@ -60,7 +54,7 @@ The API will be available at:
       }'
     ```
 
-    ✅ Copy the "access" token from response.  
+    Copy the "access" token from response.  
     For the next requests, replace `<ACCESS_TOKEN>` with that token.
 
 ---
