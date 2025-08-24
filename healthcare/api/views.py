@@ -58,6 +58,8 @@ class MappingListCreateView(generics.ListCreateAPIView):
 
 
 
+
+
 class MappingByPatientView(generics.ListAPIView):
     serializer_class = PatientDoctorMappingSerializer
     permission_classes = [IsAuthenticated]
@@ -71,3 +73,9 @@ class MappingDestroyView(generics.DestroyAPIView):
     serializer_class = PatientDoctorMappingSerializer
     lookup_field='pk'
     permission_classes = [IsAuthenticated]
+
+
+
+
+"""
+"""
