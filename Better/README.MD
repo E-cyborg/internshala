@@ -11,11 +11,11 @@ This project is submitted as part of the internship assessment for the role of *
 - Create, Read, Update, and Delete comments associated with a task.
 - Follows RESTful principles and clean code structure.
 - Includes automated tests to validate functionality.
-- Built using Django + Django REST Framework. *(or Flask, if applicable — update as needed)*
+- Built using **Django + Django REST Framework**.
 
 ---
 
-## 📁 Project Structure (Key Parts)
+## 📁 Project Structure (Key Files)
 
 ├── models.py # Comment model (linked to Task)
 ├── serializers.py # Comment serializer for DRF
@@ -23,20 +23,25 @@ This project is submitted as part of the internship assessment for the role of *
 ├── urls.py # Routes for API endpoints
 ├── tests.py # Automated tests for the API
 
+
 ---
+
 ## 🔄 API Endpoints
 
-| Method        | Endpoint                   | Description                   |
-|---------------|----------------------------|-------------------------------|
-| `GET`         | `/api/comments/`           | Retrieve a list of all comments |
-| `POST`        | `/api/comments/`           | Create a new comment          |
-| `PUT`         | `/api/comments/<comment_id>/` | Update an existing comment    |
-| `DELETE`      | `/api/comments/<comment_id>/` | Delete a comment              |
-
-
+| Method   | Endpoint                        | Description                    |
+|----------|----------------------------------|--------------------------------|
+| `GET`    | `/api/comments/`                | Retrieve all comments          |
+| `POST`   | `/api/comments/`                | Create a new comment           |
+| `PUT`    | `/api/comments/<comment_id>/`   | Update an existing comment     |
+| `DELETE` | `/api/comments/<comment_id>/`   | Delete a comment               |
 
 ---
 
+## 🧪 Running the Project
+
+Make sure your virtual environment is activated and dependencies are installed.
+
+Start the development server:
 
 ```bash
 python manage.py runserver
