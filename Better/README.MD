@@ -24,17 +24,16 @@ This project is submitted as part of the internship assessment for the role of *
 ├── tests.py # Automated tests for the API
 
 ---
-
 ## 🔄 API Endpoints
 
-| Method | Endpoint                      | Description              |
-|--------|-------------------------------|--------------------------|
-| GET    | `/tasks/<task_id>/comments/`  | List comments for task   |
-| POST   | `/tasks/<task_id>/comments/`  | Create a new comment     |
-| PUT    | `/comments/<comment_id>/`     | Update a comment         |
-| DELETE | `/comments/<comment_id>/`     | Delete a comment         |
+| Method        | Endpoint                   | Description                   |
+|---------------|----------------------------|-------------------------------|
+| `GET`         | `/api/comments/`           | Retrieve a list of all comments |
+| `POST`        | `/api/comments/`           | Create a new comment          |
+| `PUT`         | `/api/comments/<comment_id>/` | Update an existing comment    |
+| `DELETE`      | `/api/comments/<comment_id>/` | Delete a comment              |
 
-*Endpoints may vary slightly depending on the router/view setup.*
+
 
 ---
 
