@@ -4,7 +4,7 @@ from .serializers import PatientSerializer
 
 class PatientListCreateView(generics.ListCreateAPIView):
     serializer_class = PatientSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         return Patient.objects.filter(user=self.request.user)
@@ -15,7 +15,7 @@ class PatientListCreateView(generics.ListCreateAPIView):
 
 class PatientDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PatientSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         return Patient.objects.filter(user=self.request.user)

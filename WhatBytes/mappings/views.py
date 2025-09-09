@@ -5,16 +5,15 @@ from patients.models import Patient
 
 class MappingListCreateView(generics.ListCreateAPIView):
     serializer_class = PatientDoctorMappingSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        # Only mappings for patients owned by the current user
         return PatientDoctorMapping.objects.filter(patient__user=self.request.user)
 
 
 class MappingDetailView(generics.RetrieveDestroyAPIView):
     serializer_class = PatientDoctorMappingSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         return PatientDoctorMapping.objects.filter(patient__user=self.request.user)
@@ -22,7 +21,7 @@ class MappingDetailView(generics.RetrieveDestroyAPIView):
 
 class PatientDoctorListView(generics.ListAPIView):
     serializer_class = PatientDoctorMappingSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         patient_id = self.kwargs["patient_id"]

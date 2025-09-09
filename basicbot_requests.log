@@ -1,0 +1,27 @@
+2025-09-09 12:14:21,301 - INFO - BasicBot initialized with base_url=https://testnet.binancefuture.com
+2025-09-09 12:14:21,302 - DEBUG - GET https://testnet.binancefuture.com/fapi/v1/time
+2025-09-09 12:14:21,941 - DEBUG - Response [200]: {"serverTime":1757400261740}
+2025-09-09 12:14:21,944 - DEBUG - POST https://testnet.binancefuture.com/fapi/v1/order params={'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': '0.001', 'timestamp': 1757400261740, 'signature': '*****'}
+2025-09-09 12:14:22,446 - DEBUG - Response [400]: {"code":-4061,"msg":"Order's position side does not match user's setting."}
+2025-09-09 12:14:22,453 - ERROR - HTTP error: 400 Client Error: Bad Request for url: https://testnet.binancefuture.com/fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=0.001&timestamp=1757400261740&signature=e9daf3479088549f565cc9f83dc31e7e63e20295af245f6afa9a1cc64a8fb480, body: {'code': -4061, 'msg': "Order's position side does not match user's setting."}
+2025-09-09 12:14:22,455 - ERROR - Order failed: {'code': -4061, 'msg': "Order's position side does not match user's setting."}
+2025-09-09 12:15:04,915 - INFO - BasicBot initialized with base_url=https://testnet.binancefuture.com
+2025-09-09 12:15:04,915 - DEBUG - GET https://testnet.binancefuture.com/fapi/v1/time
+2025-09-09 12:15:05,496 - DEBUG - Response [200]: {"serverTime":1757400305359}
+2025-09-09 12:15:05,498 - DEBUG - POST https://testnet.binancefuture.com/fapi/v1/order params={'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': '0.001', 'positionSide': 'LONG', 'timestamp': 1757400305359, 'signature': '*****'}
+2025-09-09 12:15:06,376 - DEBUG - Response [400]: {"code":-2019,"msg":"Margin is insufficient."}
+2025-09-09 12:15:06,376 - ERROR - HTTP error: 400 Client Error: Bad Request for url: https://testnet.binancefuture.com/fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=0.001&positionSide=LONG&timestamp=1757400305359&signature=a355dd41dec64f3e70e7d2e5b920d9c173b25c6ddc3aa14251e8f0faf83e077c, body: {'code': -2019, 'msg': 'Margin is insufficient.'}
+2025-09-09 12:15:06,378 - ERROR - Order failed: {'code': -2019, 'msg': 'Margin is insufficient.'}
+2025-09-09 12:15:14,480 - INFO - BasicBot initialized with base_url=https://testnet.binancefuture.com
+2025-09-09 12:15:14,480 - DEBUG - GET https://testnet.binancefuture.com/fapi/v1/time
+2025-09-09 12:15:14,979 - DEBUG - Response [200]: {"serverTime":1757400314822}
+2025-09-09 12:15:14,980 - DEBUG - POST https://testnet.binancefuture.com/fapi/v1/order params={'symbol': 'BTCUSDT', 'side': 'SELL', 'type': 'MARKET', 'quantity': '0.001', 'positionSide': 'SHORT', 'timestamp': 1757400314822, 'signature': '*****'}
+2025-09-09 12:15:15,497 - DEBUG - Response [200]: {"orderId":5643547764,"symbol":"BTCUSDT","status":"NEW","clientOrderId":"4oV25WZs5Fzs6jCiOPVQrt","price":"0.00","avgPrice":"0.00","origQty":"0.001","executedQty":"0.000","cumQty":"0.000","cumQuote":"0.00000","timeInForce":"GTC","type":"MARKET","reduceOnly":false,"closePosition":false,"side":"SELL","positionSide":"SHORT","stopPrice":"0.00","workingType":"CONTRACT_PRICE","priceProtect":false,"origType":"MARKET","priceMatch":"NONE","selfTradePreventionMode":"EXPIRE_MAKER","goodTillDate":0,"updateTime":1757400315346}
+2025-09-09 12:15:15,499 - INFO - Order placed: symbol=BTCUSDT side=SELL type=MARKET qty=0.001 price=None status=NEW
+2025-09-09 12:21:55,980 - INFO - BasicBot initialized with base_url=https://testnet.binancefuture.com
+2025-09-09 12:21:55,981 - DEBUG - GET https://testnet.binancefuture.com/fapi/v1/time
+2025-09-09 12:21:56,540 - DEBUG - Response [200]: {"serverTime":1757400716422}
+2025-09-09 12:21:56,542 - DEBUG - POST https://testnet.binancefuture.com/fapi/v1/order params={'symbol': 'BTCUSDT', 'side': 'BUY', 'type': 'MARKET', 'quantity': '0.001', 'timestamp': 1757400716422, 'signature': '*****'}
+2025-09-09 12:21:57,076 - DEBUG - Response [400]: {"code":-4061,"msg":"Order's position side does not match user's setting."}
+2025-09-09 12:21:57,076 - ERROR - HTTP error: 400 Client Error: Bad Request for url: https://testnet.binancefuture.com/fapi/v1/order?symbol=BTCUSDT&side=BUY&type=MARKET&quantity=0.001&timestamp=1757400716422&signature=d338babb65d614635f7cf097f81f7ed5df321d2ef170b5a803481f47d0f8f367, body: {'code': -4061, 'msg': "Order's position side does not match user's setting."}
+2025-09-09 12:21:57,079 - ERROR - Order failed: {'code': -4061, 'msg': "Order's position side does not match user's setting."}

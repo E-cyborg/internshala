@@ -1,0 +1,17 @@
+#------------------------
+    to create user
+
+http://127.0.0.1:8000/api/auth/register/
+
+
+
+#------------------------
+to login :- add the username and password in json
+http://127.0.0.1:8000/api/auth/login/
+
+
+# ----------------------
+TO register a patient:- add the Bearer access Token
+http://127.0.0.1:8000/api/auth/patients/
+
+#----------------------
