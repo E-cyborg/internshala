@@ -86,6 +86,14 @@ coverage/
 
 ./internshala/Ramraj Enterprises/credentials/credentials.json
 
+# Secrets
+token.json
+credentials.json
+Ramraj Enterprises/credentials/
+.env
 
-git rm --cached token.json
-git rm --cached "Ramraj Enterprises/credentials/credentials.json"
+# Google OAuth / Secrets
+token.json
+credentials.json
+Ramraj Enterprises/credentials/
+.env
