@@ -85,3 +85,7 @@ coverage/
 *.lcov
 
 ./internshala/Ramraj Enterprises/credentials/credentials.json
+
+
+git rm --cached token.json
+git rm --cached "Ramraj Enterprises/credentials/credentials.json"
