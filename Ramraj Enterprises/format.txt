@@ -1,0 +1,14 @@
+│
+├── src/
+│ ├── gmail_service.py
+│ ├── sheets_service.py
+│ ├── email_parser.py
+│ └── main.py
+│
+├── credentials/
+│ └── credentials.json (DO NOT COMMIT)
+│
+├── .gitignore
+├── requirements.txt
+├── README.md
+└── config.py 
