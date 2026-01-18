@@ -1,0 +1,8 @@
+controller:
+  base_url: "https://semantic-brandea-banao-dc049ed0.koyeb.app"
+  username: "your_username"
+  password: "your_password"
+
+headers:
+  content_type: "application/json"
+

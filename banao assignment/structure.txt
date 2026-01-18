@@ -1,0 +1,18 @@
+avi_test_framework/
+│
+├── config/
+│   ├── config.yaml
+│   └── testcases.yaml
+│
+├── framework/
+│   ├── api_client.py
+│   ├── executor.py
+│   ├── mock_connectors.py
+│   └── utils.py
+│
+├── tests/
+│   └── disable_vs_test.py
+│
+├── main.py
+├── requirements.txt
+└── README.md

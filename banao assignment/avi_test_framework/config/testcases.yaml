@@ -1,0 +1,18 @@
+testcases:
+  - name: disable_backend_vs
+    description: "Disable Virtual Service backend-vs-t1r_1000-1"
+    target_vs_name: "backend-vs-t1r_1000-1"
+    pre_validation:
+      method: GET
+      expected:
+        enabled: true
+    action:
+      method: PUT
+      payload:
+        enabled: false
+      expected:
+        enabled: false
+    post_validation:
+      method: GET
+      expected:
+        enabled: false
