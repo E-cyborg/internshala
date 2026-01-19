@@ -17,14 +17,14 @@ class API_CLIENT:
         print("Login successful, token acquired.")
     
     def get(self,endpoint):
-        url = f"{self.base_url}\{endpoint}"
+        url = f"{self.base_url}/{endpoint}"
         responce = requests.get(url=url,headers=self.header)
         responce.raise_for_status()
         return responce.json()
 
     
     def put(self,endpoint,payload):
-        url = f"{self.base_url}\{endpoint}"
+        url = f"{self.base_url}/{endpoint}"
         responce = requests.put(url=url,headers=self.header,json=payload)
         responce.raise_for_status()
         return responce.json
