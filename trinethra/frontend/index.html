@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Trinethra — Supervisor Feedback Analyzer</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f5f5f5; color: #1a1a1a; }
+
+    .header {
+      background: #1a1a2e;
+      color: white;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header h1 { font-size: 1.2rem; font-weight: 600; }
+    .header span { font-size: 0.8rem; color: #aaa; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 0;
+      height: calc(100vh - 56px);
+    }
+
+    .left-panel {
+      background: white;
+      border-right: 1px solid #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      gap: 12px;
+    }
+
+    .left-panel label { font-size: 0.85rem; font-weight: 600; color: #555; }
+
+    .sample-bar {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .sample-bar select {
+      flex: 1;
+      padding: 8px 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 0.83rem;
+      font-family: inherit;
+      background: white;
+      cursor: pointer;
+    }
+    .sample-bar select:focus { outline: none; border-color: #6c63ff; }
+
+    .load-btn {
+      background: #f0f0f0;
+      border: 1px solid #ddd;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 0.83rem;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: inherit;
+    }
+    .load-btn:hover { background: #e8e8e8; }
+
+    .left-panel textarea {
+      flex: 1;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 0.88rem;
+      resize: none;
+      font-family: inherit;
+      line-height: 1.6;
+    }
+    .left-panel textarea:focus { outline: none; border-color: #6c63ff; }
+
+    .analyze-btn {
+      background: #6c63ff;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .analyze-btn:hover { background: #5a52e0; }
+    .analyze-btn:disabled { background: #aaa; cursor: not-allowed; }
+
+    .right-panel {
+      overflow-y: auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .empty-state {
+      margin: auto;
+      text-align: center;
+      color: #aaa;
+    }
+    .empty-state h2 { font-size: 1.1rem; margin-bottom: 8px; }
+    .empty-state p { font-size: 0.85rem; }
+
+    .loading { margin: auto; text-align: center; color: #6c63ff; }
+    .spinner {
+      width: 40px; height: 40px;
+      border: 3px solid #e0e0e0;
+      border-top-color: #6c63ff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      border: 1px solid #e8e8e8;
+      overflow: hidden;
+    }
+    .card-header {
+      padding: 12px 16px;
+      background: #f9f9f9;
+      border-bottom: 1px solid #e8e8e8;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .card-body { padding: 16px; }
+
+    .score-display { display: flex; align-items: center; gap: 20px; margin-bottom: 12px; }
+    .score-number { font-size: 3rem; font-weight: 700; line-height: 1; }
+    .score-meta h3 { font-size: 1rem; font-weight: 600; }
+    .score-meta .band {
+      font-size: 0.8rem; padding: 2px 8px; border-radius: 4px;
+      display: inline-block; margin-top: 4px;
+    }
+    .band-need { background: #fee2e2; color: #dc2626; }
+    .band-productivity { background: #fef3c7; color: #d97706; }
+    .band-performance { background: #d1fae5; color: #059669; }
+    .confidence-badge {
+      font-size: 0.75rem; padding: 2px 8px; border-radius: 4px;
+      background: #e8e8e8; color: #555; margin-left: 8px;
+    }
+    .justification {
+      font-size: 0.88rem; line-height: 1.6; color: #333;
+      background: #f9f9f9; padding: 10px 12px; border-radius: 6px;
+      border-left: 3px solid #6c63ff;
+    }
+
+    .evidence-item {
+      padding: 12px; border-radius: 8px; margin-bottom: 10px;
+      border: 1px solid #e8e8e8;
+    }
+    .evidence-item:last-child { margin-bottom: 0; }
+    .evidence-positive { border-left: 3px solid #059669; }
+    .evidence-negative { border-left: 3px solid #dc2626; }
+    .evidence-neutral { border-left: 3px solid #d97706; }
+    .evidence-quote { font-size: 0.85rem; font-style: italic; color: #333; margin-bottom: 6px; }
+    .evidence-quote::before { content: '"'; }
+    .evidence-quote::after { content: '"'; }
+    .evidence-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 6px; }
+    .tag { font-size: 0.72rem; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+    .tag-positive { background: #d1fae5; color: #059669; }
+    .tag-negative { background: #fee2e2; color: #dc2626; }
+    .tag-neutral { background: #fef3c7; color: #d97706; }
+    .tag-dim { background: #e8e8f8; color: #5555aa; }
+    .evidence-interpretation { font-size: 0.82rem; color: #666; line-height: 1.5; }
+
+    .kpi-item {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 10px 0; border-bottom: 1px solid #f0f0f0; gap: 12px;
+    }
+    .kpi-item:last-child { border-bottom: none; }
+    .kpi-name { font-weight: 600; font-size: 0.88rem; min-width: 120px; }
+    .kpi-evidence { font-size: 0.83rem; color: #555; flex: 1; }
+    .kpi-type { font-size: 0.72rem; padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
+    .kpi-system { background: #d1fae5; color: #059669; }
+    .kpi-personal { background: #fef3c7; color: #d97706; }
+
+    .gap-item {
+      padding: 10px 12px; background: #fff8f0;
+      border: 1px solid #fed7aa; border-radius: 6px; margin-bottom: 8px;
+    }
+    .gap-item:last-child { margin-bottom: 0; }
+    .gap-dimension { font-weight: 600; font-size: 0.83rem; color: #d97706; margin-bottom: 4px; }
+    .gap-detail { font-size: 0.82rem; color: #555; line-height: 1.5; }
+
+    .question-item {
+      padding: 12px; background: #f0f4ff;
+      border: 1px solid #c7d2fe; border-radius: 6px; margin-bottom: 8px;
+    }
+    .question-item:last-child { margin-bottom: 0; }
+    .question-text { font-size: 0.88rem; font-weight: 500; color: #1a1a2e; margin-bottom: 6px; }
+    .question-meta { font-size: 0.78rem; color: #666; }
+    .question-looking { font-size: 0.78rem; color: #5555aa; margin-top: 4px; font-style: italic; }
+
+    .error-box {
+      background: #fee2e2; border: 1px solid #fca5a5;
+      border-radius: 8px; padding: 16px; color: #dc2626; font-size: 0.88rem;
+    }
+    .draft-notice {
+      background: #fef3c7; border: 1px solid #fcd34d;
+      border-radius: 6px; padding: 10px 14px; font-size: 0.82rem; color: #92400e;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>👁 Trinethra — Supervisor Feedback Analyzer</h1>
+    <span>AI-assisted analysis · Review and validate each finding before finalizing</span>
+  </div>
+</div>
+
+<div class="layout">
+  <div class="left-panel">
+    <label>LOAD SAMPLE TRANSCRIPT</label>
+    <div class="sample-bar">
+      <select id="sampleSelect">
+        <option value="">-- select a sample --</option>
+      </select>
+      <button class="load-btn" onclick="loadSample()">Load</button>
+    </div>
+
+    <label>SUPERVISOR TRANSCRIPT</label>
+    <textarea id="transcript" placeholder="Paste the supervisor's transcript here, or load a sample above..."></textarea>
+    <button class="analyze-btn" id="analyzeBtn" onclick="analyze()">Run Analysis</button>
+  </div>
+
+  <div class="right-panel" id="results">
+    <div class="empty-state">
+      <h2>Paste a transcript and run analysis</h2>
+      <p>The AI will extract evidence, suggest a score,<br>map KPIs, identify gaps, and generate follow-up questions.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  let samplesData = [];
+
+  // Load sample list from backend on page load
+  async function loadSamples() {
+    try {
+      const res = await fetch('/samples');
+      const data = await res.json();
+      samplesData = data.samples;
+      const select = document.getElementById('sampleSelect');
+      samplesData.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s.id;
+        opt.textContent = `${s.fellow} — ${s.company}`;
+        select.appendChild(opt);
+      });
+    } catch (e) {
+      console.warn('Could not load samples:', e);
+    }
+  }
+
+  function loadSample() {
+    const id = document.getElementById('sampleSelect').value;
+    if (!id) return;
+    const sample = samplesData.find(s => s.id === id);
+    if (sample) {
+      document.getElementById('transcript').value = sample.transcript;
+    }
+  }
+
+  async function analyze() {
+    // NOTE: Do NOT strip newlines — transcript structure matters for the LLM
+    const transcript = document.getElementById('transcript').value.trim();
+    if (!transcript) { alert('Please paste a transcript first.'); return; }
+
+    const btn = document.getElementById('analyzeBtn');
+    const results = document.getElementById('results');
+
+    btn.disabled = true;
+    btn.textContent = 'Analyzing...';
+    results.innerHTML = `
+      <div class="loading">
+        <div class="spinner"></div>
+        <p>Running analysis with Llama 3.2...<br><small style="color:#aaa">This may take 30–60 seconds</small></p>
+      </div>`;
+
+    try {
+      const res = await fetch('/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ transcript })
+      });
+      const data = await res.json();
+
+      if (!data.success) {
+        results.innerHTML = `<div class="error-box"><strong>Error:</strong> ${data.error}${data.raw ? '<br><br><small>' + data.raw.substring(0, 300) + '...</small>' : ''}</div>`;
+        return;
+      }
+
+      renderResults(data.data);
+    } catch (err) {
+      results.innerHTML = `<div class="error-box">Could not connect to backend. Make sure the server is running with: <code>uvicorn main:app --reload</code></div>`;
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Run Analysis';
+    }
+  }
+
+  function renderResults(data) {
+    const results = document.getElementById('results');
+    const bandClass = {
+      'Need Attention': 'band-need',
+      'Productivity': 'band-productivity',
+      'Performance': 'band-performance'
+    }[data.score?.band] || 'band-productivity';
+
+    const scoreColor = data.score?.value <= 3 ? '#dc2626' : data.score?.value <= 6 ? '#d97706' : '#059669';
+
+    results.innerHTML = `
+      <div class="draft-notice">
+        ⚠️ <strong>This is a draft analysis.</strong> Review each finding carefully. The AI suggests — you decide.
+      </div>
+
+      <div class="card">
+        <div class="card-header">📊 Rubric Score</div>
+        <div class="card-body">
+          <div class="score-display">
+            <div class="score-number" style="color:${scoreColor}">${data.score?.value ?? '?'}</div>
+            <div class="score-meta">
+              <h3>${data.score?.label ?? 'Unknown'}</h3>
+              <span class="band ${bandClass}">${data.score?.band ?? ''}</span>
+              <span class="confidence-badge">Confidence: ${data.score?.confidence ?? 'unknown'}</span>
+            </div>
+          </div>
+          <div class="justification">${data.score?.justification ?? 'No justification provided.'}</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">💬 Extracted Evidence (${data.evidence?.length ?? 0} quotes)</div>
+        <div class="card-body">
+          ${(data.evidence ?? []).map(e => `
+            <div class="evidence-item evidence-${e.signal}">
+              <div class="evidence-quote">${e.quote}</div>
+              <div class="evidence-tags">
+                <span class="tag tag-${e.signal}">${e.signal}</span>
+                <span class="tag tag-dim">${(e.dimension ?? '').replace(/_/g, ' ')}</span>
+              </div>
+              <div class="evidence-interpretation">${e.interpretation}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">📈 KPI Mapping (${data.kpiMapping?.length ?? 0} KPIs identified)</div>
+        <div class="card-body">
+          ${(data.kpiMapping ?? []).map(k => `
+            <div class="kpi-item">
+              <div class="kpi-name">${k.kpi}</div>
+              <div class="kpi-evidence">${k.evidence}</div>
+              <span class="kpi-type kpi-${k.systemOrPersonal}">${k.systemOrPersonal}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">⚠️ Gaps Identified (${data.gaps?.length ?? 0})</div>
+        <div class="card-body">
+          ${(data.gaps ?? []).map(g => `
+            <div class="gap-item">
+              <div class="gap-dimension">${(g.dimension ?? '').replace(/_/g, ' ').toUpperCase()}</div>
+              <div class="gap-detail">${g.detail}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">❓ Follow-up Questions (${data.followUpQuestions?.length ?? 0})</div>
+        <div class="card-body">
+          ${(data.followUpQuestions ?? []).map((q, i) => `
+            <div class="question-item">
+              <div class="question-text">${i + 1}. ${q.question}</div>
+              <div class="question-meta">Targets: <strong>${(q.targetGap ?? '').replace(/_/g, ' ')}</strong></div>
+              <div class="question-looking">Looking for: ${q.lookingFor}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  // Init
+  loadSamples();
+</script>
+</body>
+</html>
